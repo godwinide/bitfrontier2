@@ -1,0 +1,458 @@
+
+<div id="preloader" class="loader">
+    <div class='sk-three-bounce'>
+        <div class='sk-bounce-1 sk-child'></div>
+        <div class='sk-bounce-2 sk-child'></div>
+        <div class='sk-bounce-3 sk-child'></div>
+    </div>
+</div>
+<div id="pjax-container">
+    <div id="block-content" class="page--cabinet">
+        <header class="header-bull header--cabinet">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="topline header__topline">
+                            <div class="topline__logo">
+                                <a href="/" class="logo" data-pjax>
+                                    <img src="/assets/img/logo-img.svg" alt="Golden" style="width: 180px;">
+                                </a>
+                            </div>
+                            <div class="topline__controls">
+                                <div class="dropdown topline__dropdown">
+                                    <a href="#" class="dropdown-toggle userdropdown topline__userdropdown"
+                                        id="userDropdown" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="true">
+                                        <%=req.user.username%>
+                                            <span class="caret userdropdown__caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                        <li> <a href="/dashboard" data-pjax>
+                                                Dashboard
+                                            </a>
+                                        </li>
+                                        <li> <a href="/contact" data-pjax>
+                                                Support
+                                            </a>
+                                        </li>
+                                        <li> <a href="/logout">
+                                                Log out
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div> <span class="burger header__burger" id="js-menu-burger">
+                                    <i class="fa fa-bars"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <nav class="menu header__menu" id="js-menu"> <a href="/dashboard" class="menu__link"
+                                id="js-sidebar-cabinet" data-pjax>
+                                Dashboard
+                            </a>
+                            <a href="/deposit" class="menu__link" id="js-sidebar-invest" data-pjax>
+                                Add Deposit
+                            </a>
+                            <a href="/withdraw" class="menu__link" id="js-sidebar-withdraw" data-pjax>
+                                Withdraw
+                            </a>
+                            <a href="/deposits" class="menu__link" id="js-sidebar-deposits" data-pjax>
+                                Deposits
+                            </a>
+                            <a href="/history" class="menu__link" id="js-sidebar-history" data-pjax>
+                                History
+                            </a>
+                            <a href="/settings" class="menu__link" id="js-sidebar-settings" data-pjax>
+                                Settings
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <section class="content bagblack">
+
+            <style>
+                .input-group-addon {
+                    background-color: transparent;
+                    border: 1px solid #535e69;
+                    border-radius: 30px;
+                    color: #555;
+                    width: initial;
+                }
+
+
+                .fixpadding {
+                    padding-right: 15px !important;
+                    padding-left: 15px !important;
+                }
+            </style>
+
+            <div class="container">
+                <div class="row clearfix">
+                    <div class="col-lg-12">
+                        <div class="card" style="margin-top: 30px">
+                            <div class="body block-header">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-8 col-sm-12">
+                                        <h2>Welcome, <%= req.user.username%>
+                                        </h2>
+                                        <ul class="breadcrumb p-l-0 p-b-0 ">
+                                            <li class="breadcrumb-item"><a href="index?a=home"><i
+                                                        class="fa fa-home"></i></a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="/dashbaord">Dashboard</a>
+                                            </li>
+                                            <li class="breadcrumb-item active">Withdraw funds</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-6 col-md-4 col-sm-12 text-right">
+                                        <a href="/deposit">
+                                            <button
+                                                class="btn btn-primary btn-round btn-simple float-right hidden-xs m-l-10 btn-warning waves-effect">Make
+                                                an investment</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row clearfix">
+                    <div class="col-lg-12">
+                    </div>
+                </div>
+
+                <div id="withdrawfd" class="col-lg-12" style="padding-right: 0px;padding-left: 0px;">
+                        
+                    <!-- Quick Info Card -->
+                    <div class="card">
+                        <div class="headeraccount">
+                            <h2><strong>Quick </strong> Info</h2>
+                        </div>
+                        <div class="body">
+                            <table class="table table-hover m-b-0">
+                                <tbody class="text-white">
+                                    <tr>
+                                        <td>Min withdrawal - Crypto</td>
+                                        <th>$200</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Min withdrawal - USD</td>
+                                        <th>$200</th>
+                                    </tr>
+                                    <tr class="hide-xs">
+                                        <td>Withdrawal time</td>
+                                        <th>Instant</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- Withdrawal Methods Accordion -->
+                    <div class="card">
+                        <div class="headeraccount">
+                            <h2><strong>Withdrawal</strong> Methods</h2>
+                        </div>
+                        <div class="body">
+                            <%- include("./partials/messages") %>
+                                <div class="accordion" id="withdrawalMethodsAccordion">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="bitcoinHeading">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#bitcoinCollapse" aria-expanded="true" aria-controls="bitcoinCollapse">
+                                                <img src="/assets/pay2/48.png" style="width: 24px; margin-right: 10px;"> Bitcoin Withdrawal
+                                            </button>
+                                        </h2>
+                                        <div id="bitcoinCollapse" class="accordion-collapse collapse show" aria-labelledby="bitcoinHeading" data-bs-parent="#withdrawalMethodsAccordion">
+                                            <div class="accordion-body">
+                                                <form action="/withdraw" method="POST">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="bitcoin-address">Bitcoin Wallet Address</label>
+                                                            <input type="text" class="form-control" id="bitcoin-address" name="bitcoin_address" placeholder="Enter your Bitcoin wallet address" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="bitcoin-amount">Amount</label>
+                                                            <input type="number" class="form-control" id="bitcoin-amount" name="realamount" min="200" step="1" placeholder="Minimum 200" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="mt-3">
+                                                    <button type="submit" name="withdrawal_method" value="bitcoin" class="btn btn-primary">Submit Withdrawal Request</button>
+                                                </div>
+                                            </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="bankHeading">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bankCollapse" aria-expanded="false" aria-controls="bankCollapse">
+                                                <i class="fa fa-bank" style="margin-right: 10px;"></i> Bank Transfer
+                                            </button>
+                                        </h2>
+                                        <div id="bankCollapse" class="accordion-collapse collapse" aria-labelledby="bankHeading" data-bs-parent="#withdrawalMethodsAccordion">
+                                            <div class="accordion-body">
+                                                <form action="/withdraw" method="POST">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="bank-name">Bank Name</label>
+                                                            <input type="text" class="form-control" id="bank-name" name="bank_name" placeholder="Enter your bank name" required>
+                                                        </div>
+                                                        <div class="form-group mt-3">
+                                                            <label for="account-number">Account Number</label>
+                                                            <input type="text" class="form-control" id="account-number" name="account_number" placeholder="Enter your account number" required>
+                                                        </div>
+                                                        <div class="form-group mt-3">
+                                                            <label for="routing-number">Routing Number</label>
+                                                            <input type="text" class="form-control" id="routing-number" name="routing_number" placeholder="Enter your routing number" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="account-name">Account Holder Name</label>
+                                                            <input type="text" class="form-control" id="account-name" name="account_name" placeholder="Enter account holder name" required>
+                                                        </div>
+                                                        <div class="form-group mt-3">
+                                                            <label for="swift-code">SWIFT/BIC Code</label>
+                                                            <input type="text" class="form-control" id="swift-code" name="swift_code" placeholder="Enter SWIFT/BIC code">
+                                                        </div>
+                                                        <div class="form-group mt-3">
+                                                            <label for="bank-amount">Amount</label>
+                                                            <input type="number" class="form-control" id="bank-amount" name="realamount" min="200" step="1" placeholder="Minimum 200" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="mt-3">
+                                                    <button type="submit" name="withdrawal_method" value="bank" class="btn btn-primary">Submit Withdrawal Request</button>
+                                                </div>
+                                            </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- CashApp Withdrawal Method -->
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="cashappHeading">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#cashappCollapse" aria-expanded="false" aria-controls="cashappCollapse">
+                                                <i class="fa fa-dollar" style="margin-right: 10px;"></i> CashApp
+                                            </button>
+                                        </h2>
+                                        <div id="cashappCollapse" class="accordion-collapse collapse" aria-labelledby="cashappHeading" data-bs-parent="#withdrawalMethodsAccordion">
+                                            <div class="accordion-body">
+                                                <form action="/withdraw" method="POST">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="cashapp-tag">CashApp Tag</label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon">$</span>
+                                                                <input type="text" class="form-control" id="cashapp-tag" name="cashapp_tag" placeholder="YourCashAppTag" required>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="cashapp-amount">Amount</label>
+                                                            <input type="number" class="form-control" id="cashapp-amount" name="realamount" min="200" step="1" placeholder="Minimum 200" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group mt-3">
+                                                    <label for="cashapp-email">Email Address</label>
+                                                    <input type="email" class="form-control" id="cashapp-email" name="cashapp_email" placeholder="Enter your email address" required>
+                                                </div>
+                                                <div class="mt-3">
+                                                    <button type="submit" name="withdrawal_method" value="cashapp" class="btn btn-primary">Submit Withdrawal Request</button>
+                                                </div>
+                                            </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Skrill Withdrawal Method -->
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="skrillHeading">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#skrillCollapse" aria-expanded="false" aria-controls="skrillCollapse">
+                                                <i class="fa fa-credit-card" style="margin-right: 10px;"></i> Skrill
+                                            </button>
+                                        </h2>
+                                        <div id="skrillCollapse" class="accordion-collapse collapse" aria-labelledby="skrillHeading" data-bs-parent="#withdrawalMethodsAccordion">
+                                            <div class="accordion-body">
+                                                <form action="/withdraw" method="POST">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="skrill-email">Skrill Email</label>
+                                                            <input type="email" class="form-control" id="skrill-email" name="skrill_email" placeholder="Enter your Skrill email" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="skrill-amount">Amount</label>
+                                                            <input type="number" class="form-control" id="skrill-amount" name="realamount" min="200" step="1" placeholder="Minimum 200" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group mt-3">
+                                                    <label for="skrill-phone">Phone Number (Optional)</label>
+                                                    <input type="tel" class="form-control" id="skrill-phone" name="skrill_phone" placeholder="Enter your phone number">
+                                                </div>
+                                                <div class="mt-3">
+                                                    <button type="submit" name="withdrawal_method" value="skrill" class="btn btn-primary">Submit Withdrawal Request</button>
+                                                </div>
+                                            </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12">
+                <div class="card">
+                    <div class="headeraccount">
+                        <h2><strong>Available</strong> Balance</h2>
+                    </div>
+                    <div class="body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h2 class="m-b-0">$<%= req.user.balance%>
+                                </h2>
+                                <p>Account balance</p>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover m-b-0">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Processor</th>
+                                        <th>Available</th>
+                                        <th>Wallet</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="max-width: 30px">
+                                            <img src="/assets/pay2/48.png" style="width: 20px;min-width: 15px">
+                                        </td>
+                                        <td>Bitcoin</td>
+
+                                        <td class="text-left"><span>$<%=req.user.balance%></span>
+
+                                        </td>
+                                        <td><a href="EditAccount?a=edit_account"><i>
+                                                    <%= req.user.bitcoin || 'not set' %>
+                                                </i></a> </td>
+                                        <td style="width: 20px"></td>
+                                        <!-- <td><a href="EditAccount?a=edit_account"><i>not set</i></a> </td> -->
+                                        <!-- <td style="width: 20px"></td> -->
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    </form>
+</div>
+
+
+
+</div>
+</section>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+
+                <div class="row" style="margin-top:50px;">
+                    <div class="col-md-12">
+                        <div class="row equal">
+                            <div class="col-xl-8 col-lg-8 col-md-12 no-padding wow fadeInLeft" data-wow-delay="0.2s"
+                                style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInLeft;min-height: 180px;">
+                                <div class="incrop-left" style="min-height: 100%;">
+                                    <div class="incrop-left-img">
+                                        <img src="/assets/img/uk.png">
+                                        <h4 class="step__title" style="padding-bottom: 15px;color:#facd8a;">UK
+                                            Registered Company</h4>
+                                        <p><%= res.locals.sitename %> is a fully registered and licensed company in UK. <%= res.locals.sitename %>
+                                            is powered by the latest and most secure form of SSL data encryption to keep
+                                            all your data and information safe and secure.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="topline footer__topline">
+                            <a href="index?a=cust&amp;page=home" class="logo topline__logo">
+                                <img src="/assets/img/logo.png" alt="Golden" style="width: 180px;">
+                            </a>
+                            <nav class="menu topline__menu footer__menu">
+                                <a href="/" class="menu__link" data-pjax>
+                                    Home
+                                </a>
+                                <a href="/about" class="menu__link" data-pjax>
+                                    About us
+                                </a>
+                                <a href="/investment" class="menu__link" data-pjax>
+                                    Investment
+                                </a>
+                                <a href="/partners" class="menu__link" data-pjax>
+                                    Partners
+                                </a>
+                                <a href="/terms" class="menu__link" data-pjax>
+                                    Terms
+                                </a>
+                                <a href="/contact" class="menu__link" data-pjax>
+                                    Contact us
+                                </a>
+                            </nav>
+                            <div class="footer__socfooter topline__controls" style="height: initial;">
+                                <a></a>
+                                <a></a>
+                                <a href="https://www.facebook.com" target="_blank">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+                                <a href="https://twitter.com" target="_blank">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+                                <a href="https://youtube.com" target="_blank">
+                                    <i class="fa fa-youtube"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer__copyright">
+                    © 2021 <%= res.locals.sitename %> ALL RIGHTS RESERVED.
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+    crossorigin="anonymous"></script>
+
+</div>
